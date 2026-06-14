@@ -1,82 +1,119 @@
 # OpenClaw 工作区配置备份
 
-此仓库包含 OpenClaw AI 助手的工作区配置和个性化设置。
+> 备份时间：2026-06-14 09:50 (GMT+8)
 
-## 📁 目录结构
+## 📁 仓库结构
 
 ```
 .
-├── AGENTS.md              # 工作区行为规范和配置
-├── SOUL.md                # AI 助手人格定义
-├── IDENTITY.md            # 助手身份信息
-├── USER.md                # 用户信息和偏好
-├── MEMORY.md              # 长期记忆（重要决策和偏好）
-├── TOOLS.md               # 本地工具配置笔记
-├── HEARTBEAT.md           # 心跳检查任务配置
-├── ONBOARDING.md          # 新用户引导流程
+├── README.md                 # 本文件
+├── .gitignore
 │
-├── memory/                # 每日记忆日志
-│   └── YYYY-MM-DD.md     # 按日期记录的事件
+├── agents/                   # 智能体工作区配置
+│   ├── main/                 # 主助手 - 小焱 (Xiǎo Yàn)
+│   │   ├── IDENTITY.md       # 身份定义
+│   │   ├── SOUL.md           # 人格定义
+│   │   ├── AGENTS.md         # 工作区行为规范
+│   │   ├── MEMORY.md         # 长期记忆
+│   │   ├── TOOLS.md          # 工具配置笔记
+│   │   ├── USER.md           # 用户信息
+│   │   ├── HEARTBEAT.md      # 心跳任务
+│   │   └── memory/           # 每日记忆日志
+│   │
+│   ├── learner/              # 学习助手 - 焱老
+│   │   ├── IDENTITY.md       # 身份：互联网技术学习导师
+│   │   ├── SOUL.md           # 人格：六阶认知教学法
+│   │   ├── AGENTS.md         # 工作流：导师授课 + 答疑解惑
+│   │   ├── MEMORY.md         # 学员画像 + 学习进度
+│   │   ├── TOOLS.md
+│   │   ├── USER.md
+│   │   ├── HEARTBEAT.md
+│   │   └── memory/
+│   │
+│   └── comic/                # AI漫剧助手 - 焱宝
+│       ├── IDENTITY.md       # 身份：漫剧创作助理
+│       ├── SOUL.md           # 人格：画面叙事 + 短剧节奏
+│       ├── AGENTS.md         # 工作流：小说→剧本→分镜
+│       ├── MEMORY.md         # 创作档案 + 工作规范
+│       ├── TOOLS.md
+│       ├── USER.md
+│       ├── HEARTBEAT.md
+│       └── memory/
 │
-├── skills/                # 已安装的技能
-│   ├── openclaw-find-skills/
-│   ├── proactive-agent/
-│   └── self-improvement/
+├── config/                   # 系统配置
+│   └── openclaw.json         # 主配置文件（需手动填入 TOKEN）
 │
-├── .clawhub/              # ClawHub 技能管理
-├── .learnings/            # 学习和错误记录
-│   ├── ERRORS.md
-│   ├── FEATURE_REQUESTS.md
-│   └── LEARNINGS.md
-│
-└── .openclaw/             # 运行时状态（不提交）
+└── skills/                   # 已安装技能
+    ├── openclaw-find-skills/
+    ├── proactive-agent/
+    └── self-improvement/
 ```
 
-## 🔧 配置说明
+## 🤖 智能体说明
 
-### 核心文件
-- **AGENTS.md**: 工作区规则、内存管理、安全边界
-- **SOUL.md**: AI 性格、沟通风格、行为准则
-- **MEMORY.md**: 持久化的用户偏好和重要决策
+### 1. 主助手 - 小焱 (Xiǎo Yàn)
+- **目录**: `agents/main/`
+- **职责**: 通用个人助手，日常任务处理
+- **模型**: qwen/qwen3.7-plus
+- **工作区**: `~/.openclaw/workspace`
 
-### 技能系统
-- 技能通过 ClawHub 安装和管理
-- 优先使用 `clawhub` 命令下载技能
-- 搜索优先使用 Tavily
+### 2. 学习助手 - 焱老
+- **目录**: `agents/learner/`
+- **职责**: 互联网技术教学导师，六阶认知教学法
+- **模型**: qwen/qwen3.7-plus
+- **工作区**: `~/.openclaw/workspace-learner`
+- **特色**: 
+  - 20年互联网行业实战经验
+  - 循序渐进的教学风格
+  - 学员画像追踪
 
-### 内存机制
-- **每日日志**: `memory/YYYY-MM-DD.md` 记录当天事件
-- **长期记忆**: `MEMORY.md` 存储重要偏好和决策
-- **学习记录**: `.learnings/` 追踪错误和改进
+### 3. AI漫剧助手 - 焱宝
+- **目录**: `agents/comic/`
+- **职责**: 小说转剧本、剧本转分镜的全链路创作
+- **模型**: qwen/qwen3.7-plus
+- **工作区**: `~/.openclaw/workspace-comic`
+- **特色**:
+  - 短剧节奏把控（每15秒一个冲突点）
+  - 分镜脚本生成
+  - AI绘图 prompt 辅助
+
+## 🔧 恢复步骤
+
+1. **安装 OpenClaw**
+   ```bash
+   npm install -g openclaw
+   ```
+
+2. **恢复配置文件**
+   ```bash
+   cp config/openclaw.json ~/.openclaw/
+   # 手动填入 GITHUB_TOKEN、CLAWHUB_TOKEN 等密钥
+   ```
+
+3. **恢复智能体工作区**
+   ```bash
+   # 主助手
+   cp -r agents/main/* ~/.openclaw/workspace/
+   
+   # 学习助手
+   cp -r agents/learner/* ~/.openclaw/workspace-learner/
+   
+   # 漫剧助手
+   cp -r agents/comic/* ~/.openclaw/workspace-comic/
+   ```
+
+4. **重启 Gateway**
+   ```bash
+   openclaw gateway restart
+   ```
 
 ## 🔒 安全说明
 
-以下文件已被 `.gitignore` 排除：
-- 包含 API 密钥的配置文件
-- 运行时状态文件
-- 环境变量文件
+- ⚠️ `config/openclaw.json` 中的敏感信息已脱敏
+- ⚠️ 恢复后需手动填入 API 密钥和 Token
+- ⚠️ 会话历史未备份，恢复后为全新状态
 
 ## 📝 更新日志
 
-- **2026-06-09**: 初始备份，配置 ClawHub 和 Tavily 偏好
-- **2026-06-14**: 整理目录结构，完善文档
-
-## 🚀 使用方法
-
-1. 克隆到 OpenClaw 工作区：
-   ```bash
-   cd ~/.openclaw/workspace
-   git clone <repo-url> .
-   ```
-
-2. 配置环境变量（如需要）：
-   - `CLAWHUB_TOKEN`: ClawHub API 令牌
-   - Tavily API 密钥在 `openclaw.json` 中配置
-
-3. 启动 OpenClaw，助手会自动加载配置
-
-## 📌 注意事项
-
-- 敏感信息（API 密钥、令牌）不应提交到仓库
-- `SESSION-STATE.md` 是运行时状态，不纳入版本控制
-- 定期将 `memory/` 日志中的重要信息整理到 `MEMORY.md`
+- **2026-06-14**: 重构仓库结构，按智能体分目录存放
+- **2026-06-09**: 初始备份
