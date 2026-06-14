@@ -1,0 +1,29 @@
+# 敏感信息
+*.env
+.env*
+*.key
+*.pem
+*.secret
+
+# 运行时状态
+.openclaw/workspace-state.json
+.clawhub/lock.json
+skills/*/_meta.json
+skills/*/.clawhub/
+SESSION-STATE.md
+memory/heartbeat-state.json
+
+# 系统文件
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.bak
+*.swp
+*~
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
